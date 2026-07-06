@@ -9,6 +9,8 @@ const FEATURES = [
   { icon: "👤", color: "rgba(240,165,0,0.12)", title: "Supervisor Portal", desc: "Supervisors get their own login. They approve, reject, and add notes to sign-offs without the apprentice seeing pending changes." },
   { icon: "🏫", color: "rgba(0,200,255,0.08)", title: "TAFE / College Integration", desc: "Assessors can view progress across their entire cohort. No chasing apprentices for logbooks the week before assessment." },
   { icon: "🔔", color: "rgba(255,68,68,0.08)", title: "Milestone Alerts", desc: "Get notified when you hit 25%, 50%, and 75% of required hours, and when sign-offs are overdue for review." },
+  { icon: "🏛️", color: "rgba(0,200,255,0.08)", title: "Certificate Board Export", desc: "One-click export in the exact format required by your state's certificate board. No reformatting. No rejected submissions." },
+  { icon: "🗺️", color: "rgba(52,211,153,0.08)", title: "Multi-Site Supervisor Portal", desc: "Supervisors managing apprentices across multiple job sites see every logbook in one dashboard. Sign off on the go from any device." },
 ];
 
 const DEMO_LOGS = [
@@ -40,7 +42,14 @@ export default function ApprenticeLogPage() {
     <>
       <nav className="nav">
         <Link href="/" className="nav-logo">
-          <div className="nav-mark">AL</div>
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+            <rect width="34" height="34" rx="9" fill="url(#al-bg)"/>
+            <path d="M11 24l6-14 6 14M13 20h8" stroke="url(#al-text)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <defs>
+              <linearGradient id="al-bg" x1="0" y1="0" x2="34" y2="34"><stop offset="0%" stopColor="#061220"/><stop offset="100%" stopColor="#030810"/></linearGradient>
+              <linearGradient id="al-text" x1="11" y1="10" x2="23" y2="24"><stop offset="0%" stopColor="#00C8FF"/><stop offset="100%" stopColor="#0090BB"/></linearGradient>
+            </defs>
+          </svg>
           <span className="nav-name">ApprenticeLog</span>
         </Link>
         <a href="#waitlist" className="nav-cta">Join Waitlist</a>
@@ -87,6 +96,29 @@ export default function ApprenticeLogPage() {
               <div className="feature-desc">{f.desc}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section style={{ padding: "5rem 1.5rem", background: "var(--bg2)", borderTop: "1px solid var(--border)" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <p className="section-label reveal" ref={addReveal}>How it works</p>
+          <h2 className="section-title reveal" ref={addReveal}>From first day to certification, handled.</h2>
+          <p className="section-sub reveal" ref={addReveal}>Four steps. No paper. No chasing. No lost records.</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.25rem" }}>
+            {[
+              { num: "01", title: "Apprentice logs daily hours", desc: "Every shift, the apprentice records hours worked, tasks completed, and which trade competency each task covers. Takes under two minutes." },
+              { num: "02", title: "Supervisor reviews and signs off", desc: "The supervisor receives a notification, reviews the log entry, adds notes if needed, and applies a digital signature — from any device, any location." },
+              { num: "03", title: "System auto-generates compliance reports", desc: "ApprenticeLog continuously tracks progress against the required competency matrix. Compliance reports are always current, never a last-minute scramble." },
+              { num: "04", title: "Institution exports for certification board", desc: "When the apprenticeship is complete, the training institution exports the full logbook record in the exact format required. One click. Submission ready." },
+            ].map((step, i) => (
+              <div key={i} className="step-card reveal" ref={addReveal} style={{ transitionDelay: `${i * 0.08}s` }}>
+                <div className="step-num">{step.num}</div>
+                <div style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "0.5rem", paddingRight: "3rem" }}>{step.title}</div>
+                <div style={{ fontSize: "0.875rem", color: "var(--text-dim)", lineHeight: 1.65 }}>{step.desc}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -149,6 +181,19 @@ export default function ApprenticeLogPage() {
           ))}
         </div>
       </section>
+
+      {/* COMPLIANCE QUOTE */}
+      <div style={{ background: "var(--bg2)", padding: "4rem 1.5rem", borderTop: "1px solid var(--border)" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <span className="compliance-badge">Training Manager Testimonial</span>
+          <blockquote className="quote-block">
+            &ldquo;Before ApprenticeLog, I spent 3 hours at the end of every month chasing paper logbooks and chasing supervisors for signatures. Now it takes 20 minutes. The compliance report generates itself.&rdquo;
+          </blockquote>
+          <p style={{ fontSize: "0.85rem", color: "var(--text-mute)", marginTop: "0.5rem" }}>
+            — Sarah Chen, Training Manager, ACT Electrical Institute
+          </p>
+        </div>
+      </div>
 
       {/* WAITLIST */}
       <section id="waitlist" style={{ padding: "5rem 1.5rem", background: "var(--bg2)", borderTop: "1px solid var(--border)" }}>
