@@ -24,6 +24,7 @@ export default function ApprenticeLogPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -40,6 +41,9 @@ export default function ApprenticeLogPage() {
 
   return (
     <>
+      <a href="/log" className="float-cta" aria-label="Start logging hours">
+        📋 Log Hours
+      </a>
       <nav className="nav">
         <Link href="/" className="nav-logo">
           <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
@@ -52,8 +56,20 @@ export default function ApprenticeLogPage() {
           </svg>
           <span className="nav-name">ApprenticeLog</span>
         </Link>
-        <a href="#waitlist" className="nav-cta">Join Waitlist</a>
+        <div style={{ display:"flex", alignItems:"center", gap:"1.5rem" }}>
+          <Link href="/log" style={{ color:"var(--text-dim)", textDecoration:"none", fontSize:"0.875rem", fontWeight:500 }}>Log Hours</Link>
+          <Link href="/dashboard" style={{ color:"var(--text-dim)", textDecoration:"none", fontSize:"0.875rem", fontWeight:500 }}>Dashboard</Link>
+          <Link href="/log" className="nav-cta">Start Logging →</Link>
+        </div>
+        <button className={`hamburger${menuOpen?" open":""}`} onClick={() => setMenuOpen(m => !m)} aria-label="Menu">
+          <span/><span/><span/>
+        </button>
       </nav>
+      <div className={`mobile-nav${menuOpen?" open":""}`}>
+        <Link href="/log" onClick={() => setMenuOpen(false)}>Log Hours</Link>
+        <Link href="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link>
+        <Link href="/log" className="mobile-cta" onClick={() => setMenuOpen(false)}>Start Logging →</Link>
+      </div>
 
       {/* HERO */}
       <section className="hero">
@@ -66,8 +82,8 @@ export default function ApprenticeLogPage() {
           Log hours, track skill sign-offs, and generate compliance reports — replacing paper books that go missing, spreadsheets nobody submits, and a process that hasn&apos;t changed in forty years.
         </p>
         <div className="hero-actions">
-          <a href="#waitlist" className="btn-primary">Join the Waitlist →</a>
-          <a href="#demo" className="btn-ghost">See How It Works</a>
+          <Link href="/log" className="btn-primary">Start Logging Hours →</Link>
+          <Link href="/dashboard" className="btn-ghost">View Dashboard</Link>
         </div>
       </section>
 
@@ -174,9 +190,9 @@ export default function ApprenticeLogPage() {
               <ul className="price-features">
                 {p.features.map((f, j) => <li key={j}>{f}</li>)}
               </ul>
-              <a href="#waitlist" className={p.featured ? "btn-primary" : "btn-ghost"} style={{ width: "100%", justifyContent: "center", display: "flex" }}>
+              <Link href="/log" className={p.featured ? "btn-primary" : "btn-ghost"} style={{ width: "100%", justifyContent: "center", display: "flex" }}>
                 Get Early Access
-              </a>
+              </Link>
             </div>
           ))}
         </div>
@@ -203,6 +219,10 @@ export default function ApprenticeLogPage() {
           <p className="section-sub" style={{ margin: "0 auto 2rem", textAlign: "center" }}>
             Join the waitlist and get early access, a free Supervisor account for 3 months, and input on what gets built next.
           </p>
+          <div style={{ display:"flex", gap:12, justifyContent:"center", flexWrap:"wrap", marginBottom:"2rem" }}>
+            <Link href="/log" className="btn-primary" style={{ fontSize:"1rem", padding:"1rem 2.5rem" }}>Start Logging Now →</Link>
+            <Link href="/dashboard" className="btn-ghost" style={{ fontSize:"1rem", padding:"1rem 2rem" }}>View Dashboard</Link>
+          </div>
           {submitted ? (
             <div style={{ padding: "2rem", background: "rgba(52,211,153,0.1)", borderRadius: "var(--radius)", border: "1px solid rgba(52,211,153,0.3)", color: "var(--pass)", fontWeight: 700 }}>
               You&apos;re on the list. We&apos;ll be in touch.
